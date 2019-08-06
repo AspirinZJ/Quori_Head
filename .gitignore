@@ -1,0 +1,5 @@
+# My configuration
+# ignore middle files
+*.a
+*.o
+out
