@@ -10,8 +10,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#include "sphere2Image.h"
-#include "rotation_theta.h"
+// #include "sphere2Image.h"
+#include "include/rotation_theta.h"
+#include <dlfcn.h>
 
 #define PI 3.141592653589793
 
@@ -79,6 +80,10 @@ void displayFunc()
     float theta, psi, Theta, Psi;
     float t; // parametric equation of a circle
 
+    void *handle = dlopen("./libs2i.so", RTLD_LAZY);
+    void (*sphere2Image)(float theta, float psi, float radius, float rm, float ro, float h, float epsilon, float L,
+                         float dx, float dy, int sWidth, int sHeight, float *px, float *py);
+    sphere2Image = dlsym(handle, "sphere2Image");
     glColor3f(1.0, 0.2, 0.2); // color of the circle
 
     while (true)
@@ -138,6 +143,9 @@ void displayFunc()
             theta = 0.5 * PI - yRot / RADIUS;
             psi = xRot / (RADIUS * sin(0.5 * PI)) + psi0;
             rotation_theta(theta, psi, psi0, dtheta, &Theta, &Psi);
+            float coe1 = 0.15 * PI;
+            float coe2 = -5;
+            Theta += coe1 * exp(coe2 * Theta);
             sphere2Image(Theta, Psi, RADIUS, RM, RO, H, EPSILON, L,
                          DX, DY, SCREENWIDTH, SCREENHEIGHT, &px, &py);
             px = px - SCREENWIDTH / 2;
