@@ -10,7 +10,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#include "sphereToimage.h"
+#include "sphere2Image.h"
 #include "rotation_theta.h"
 
 #define PI 3.141592653589793
@@ -138,7 +138,8 @@ void displayFunc()
             theta = 0.5 * PI - yRot / RADIUS;
             psi = xRot / (RADIUS * sin(0.5 * PI)) + psi0;
             rotation_theta(theta, psi, psi0, dtheta, &Theta, &Psi);
-            sphereToimage(Theta, Psi, &px, &py);
+            sphere2Image(Theta, Psi, RADIUS, RM, RO, H, EPSILON, L,
+                         DX, DY, SCREENWIDTH, SCREENHEIGHT, &px, &py);
             px = px - SCREENWIDTH / 2;
             py = py - SCREENHEIGHT / 2;
             CoordX[i] = 2 * px / SCREENHEIGHT;
