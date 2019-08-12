@@ -1,9 +1,9 @@
-#include "include/rotation_theta.h"
+#include "include/rotateTheta.h"
 /* 
 This function rotates a circle on the equtor to other places (different inclination angle)
  */
-void rotation_theta(float thetaIn, float psiIn, float psiCenter, float dtheta,
-                    float *theta, float *psi)
+void rotateTheta(float thetaIn, float psiIn, float psiCenter, float dtheta,
+                 float *theta, float *psi)
 {
     float psi_prime = psiIn - psiCenter;
     float rotMat[9] = {cos(dtheta), 0, sin(dtheta),

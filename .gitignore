@@ -2,5 +2,5 @@
 # ignore middle files
 *.a
 *.o
-out
+*.out
 .vscode/
